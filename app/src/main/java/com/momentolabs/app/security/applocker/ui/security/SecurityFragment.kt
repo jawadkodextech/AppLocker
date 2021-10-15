@@ -112,10 +112,11 @@ class SecurityFragment : BaseFragment<SecurityViewModel>() {
                         VaultAdAnalytics.bannerAdClicked(it)
                     }
 
-                    override fun onAdFailedToLoad(p0: Int) {
+                    override fun onAdFailedToLoad(p0: LoadAdError) {
                         super.onAdFailedToLoad(p0)
                         VaultAdAnalytics.bannerAdFailed(it)
                     }
+
 
                     override fun onAdLoaded() {
                         super.onAdLoaded()
@@ -126,9 +127,9 @@ class SecurityFragment : BaseFragment<SecurityViewModel>() {
 
             binding.adLayout.addView(mAdView)
             val adRequestBuilder = AdRequest.Builder()
-            AdTestDevices.DEVICES.forEach {
-                adRequestBuilder.addTestDevice(it)
-            }
+//            AdTestDevices.DEVICES.forEach {
+//                adRequestBuilder.addTestDevice(it)
+//            }
             mAdView.loadAd(adRequestBuilder.build())
         }
     }

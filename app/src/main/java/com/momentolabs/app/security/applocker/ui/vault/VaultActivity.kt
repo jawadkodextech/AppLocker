@@ -17,7 +17,6 @@ import com.momentolabs.app.security.applocker.ui.rateus.RateUsDialog
 import com.momentolabs.app.security.applocker.ui.vault.addingvaultdialog.AddToVaultDialog
 import com.momentolabs.app.security.applocker.ui.vault.analytics.VaultAdAnalytics
 import com.momentolabs.app.security.applocker.ui.vault.intent.VaultSelectorIntentHelper
-import com.momentolabs.app.security.applocker.util.ads.AdTestDevices
 import com.momentolabs.app.security.applocker.util.helper.file.FilePathHelper
 import com.tbruyelle.rxpermissions2.RxPermissions
 
@@ -124,10 +123,14 @@ class VaultActivity : BaseActivity<VaultViewModel>() {
                     VaultAdAnalytics.bannerAdClicked(this@VaultActivity)
                 }
 
-                override fun onAdFailedToLoad(p0: Int) {
+                override fun onAdFailedToLoad(p0: LoadAdError) {
                     super.onAdFailedToLoad(p0)
                     VaultAdAnalytics.bannerAdFailed(this@VaultActivity)
                 }
+//                override fun onAdFailedToLoad(p0: Int) {
+//                    super.onAdFailedToLoad(p0)
+//                    VaultAdAnalytics.bannerAdFailed(this@VaultActivity)
+//                }
 
                 override fun onAdLoaded() {
                     super.onAdLoaded()
@@ -138,9 +141,9 @@ class VaultActivity : BaseActivity<VaultViewModel>() {
 
         binding.adContainer.addView(mAdView)
         val adRequestBuilder = AdRequest.Builder()
-        AdTestDevices.DEVICES.forEach {
-            adRequestBuilder.addTestDevice(it)
-        }
+//        AdTestDevices.DEVICES.forEach {
+//            adRequestBuilder.add
+//        }
         mAdView.loadAd(adRequestBuilder.build())
     }
 

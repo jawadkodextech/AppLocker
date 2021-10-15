@@ -3,7 +3,7 @@ package com.momentolabs.app.security.applocker.ui.overlay.activity
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.bugsnag.android.Bugsnag
-import com.crashlytics.android.Crashlytics
+//import com.crashlytics.android.Crashlytics
 import com.wei.android.lib.fingerprintidentify.FingerprintIdentify
 import com.wei.android.lib.fingerprintidentify.base.BaseFingerprint
 
@@ -49,7 +49,7 @@ class FingerPrintLiveData(context: Context) :
     }
 
     override fun onCatchException(exception: Throwable?) {
-        Crashlytics.logException(exception)
+//        Crashlytics.logException(exception)
         value = FingerPrintResultData.error(exception?.message ?: "")
     }
 

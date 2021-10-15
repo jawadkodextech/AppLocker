@@ -12,7 +12,9 @@
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -23,15 +25,17 @@
 
     <application
         android:name=".AppLockerApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ui.main.MainActivity"
             android:excludeFromRecents="true"
+            android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
@@ -77,15 +81,21 @@
             android:name=".ui.intruders.IntrudersPhotosActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <service android:name=".service.AppLockerService" />
+        <service
+            android:name=".service.AppLockerService"
+            android:exported="false" />
 
-        <receiver android:name=".service.receiver.BootCompleteReceiver">
+        <receiver
+            android:name=".service.receiver.BootCompleteReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".ui.callblocker.service.CallReceiver">
+        <receiver
+            android:name=".ui.callblocker.service.CallReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
@@ -96,6 +106,7 @@
 
         <service
             android:name=".ui.callblocker.service.CallService"
+            android:exported="true"
             android:permission="android.permission.BIND_INCALL_SERVICE">
             <meta-data
                 android:name="android.telecom.IN_CALL_SERVICE_UI"
@@ -107,6 +118,7 @@
 
         <service
             android:name=".ui.callblocker.service.CallBlockerScreeningService"
+            android:exported="true"
             android:permission="android.permission.BIND_SCREENING_SERVICE">
             <intent-filter>
                 <action android:name="android.telecom.CallScreeningService" />
@@ -123,7 +135,11 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/mobile_ad_id"/>
+            android:value="@string/mobile_ad_id" />
+
+<!--        <meta-data-->
+<!--            android:name="com.bugsnag.android.API_KEY"-->
+<!--            android:value="your-api-key-here" />-->
     </application>
 
 </manifest>

@@ -3,7 +3,6 @@ package com.momentolabs.app.security.applocker
 import android.content.Context
 import androidx.multidex.MultiDex
 import com.bugsnag.android.Bugsnag
-import com.facebook.FacebookSdk
 import com.facebook.soloader.SoLoader
 import com.facebook.stetho.Stetho
 import com.google.android.gms.ads.MobileAds
@@ -21,9 +20,11 @@ class AppLockerApplication : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        MobileAds.initialize(this, getString(R.string.mobile_ad_id))
+//        MobileAds.initialize(this, getString(R.string.mobile_ad_id))
+        MobileAds.initialize(this
+        ) { }
         Stetho.initializeWithDefaults(this)
-        Bugsnag.init(this)
+        Bugsnag.start(this,"ebbfbab41a7d4b9865f3baefba6a24ce")//init(this)
         Beaver.build(this)
         ServiceStarter.startService(this)
         SoLoader.init(this, false)

@@ -27,6 +27,7 @@ class CallBlockerScreeningService : CallScreeningService() {
     override fun onCreate() {
         super.onCreate()
         AndroidInjection.inject(this)
+//        AndroidSupportInjection.inject(this)
     }
 
     override fun onScreenCall(details: Call.Details) {

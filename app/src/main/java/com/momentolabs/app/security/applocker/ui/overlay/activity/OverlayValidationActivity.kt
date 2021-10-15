@@ -20,7 +20,6 @@ import com.momentolabs.app.security.applocker.ui.intruders.camera.FrontPictureSt
 import com.momentolabs.app.security.applocker.ui.newpattern.SimplePatternListener
 import com.momentolabs.app.security.applocker.ui.overlay.analytics.OverlayAnalytics
 import com.momentolabs.app.security.applocker.ui.vault.analytics.VaultAdAnalytics
-import com.momentolabs.app.security.applocker.util.ads.AdTestDevices
 import com.momentolabs.app.security.applocker.util.extensions.convertToPatternDot
 import com.momentolabs.app.security.applocker.util.helper.file.FileManager
 import javax.inject.Inject
@@ -42,7 +41,7 @@ class OverlayValidationActivity : BaseActivity<OverlayValidationViewModel>() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_overlay_validation)
 
-        updateLaunchingAppIcon(intent.getStringExtra(KEY_PACKAGE_NAME))
+        updateLaunchingAppIcon(intent?.getStringExtra(KEY_PACKAGE_NAME) ?: "")
 
         frontPictureLiveData = FrontPictureLiveData(application, viewModel.getIntruderPictureImageFile())
 
@@ -111,10 +110,11 @@ class OverlayValidationActivity : BaseActivity<OverlayValidationViewModel>() {
                     VaultAdAnalytics.bannerAdClicked(this@OverlayValidationActivity)
                 }
 
-                override fun onAdFailedToLoad(p0: Int) {
+                override fun onAdFailedToLoad(p0: LoadAdError) {
                     super.onAdFailedToLoad(p0)
                     VaultAdAnalytics.bannerAdFailed(this@OverlayValidationActivity)
                 }
+
 
                 override fun onAdLoaded() {
                     super.onAdLoaded()
@@ -125,9 +125,9 @@ class OverlayValidationActivity : BaseActivity<OverlayValidationViewModel>() {
 
         binding.adContainer.addView(mAdView)
         val adRequestBuilder = AdRequest.Builder()
-        AdTestDevices.DEVICES.forEach {
-            adRequestBuilder.addTestDevice(it)
-        }
+//        AdTestDevices.DEVICES.forEach {
+//            adRequestBuilder.addTestDevice(it)
+//        }
         mAdView.loadAd(adRequestBuilder.build())
     }
 

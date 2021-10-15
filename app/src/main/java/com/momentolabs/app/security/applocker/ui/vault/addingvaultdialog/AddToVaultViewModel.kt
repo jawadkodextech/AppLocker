@@ -1,11 +1,9 @@
 package com.momentolabs.app.security.applocker.ui.vault.addingvaultdialog
 
+//import com.crashlytics.android.Crashlytics
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.crashlytics.android.Crashlytics
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.momentolabs.app.security.applocker.data.database.vault.VaultMediaType
 import com.momentolabs.app.security.applocker.repository.VaultRepository
 import com.momentolabs.app.security.applocker.ui.RxAwareAndroidViewModel
@@ -14,14 +12,11 @@ import com.momentolabs.app.security.applocker.util.extensions.plusAssign
 import com.momentolabs.app.security.applocker.util.helper.file.FileManager
 import com.momentolabs.app.security.applocker.util.helper.file.MediaScannerConnector
 import com.momentolabs.app.security.applocker.util.helper.progress.FakeProgress
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class AddToVaultViewModel @Inject constructor(
     private val app: Application,
@@ -68,7 +63,10 @@ class AddToVaultViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { fakeProgress.start() }
             .doOnComplete { fakeProgress.complete() }
-            .subscribe({}, { Crashlytics.logException(it) })
+            .subscribe({}, {
+//                Crashlytics.logException(it)
+            }
+            )
     }
 
     fun getAddToVaultViewStateLiveData(): LiveData<AddToVaultViewState> =
@@ -80,6 +78,8 @@ class AddToVaultViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { MediaScannerConnector.scan(context = app, filePath = filePath) },
-                { Crashlytics.logException(it) })
+                {
+//                    Crashlytics.logException(it)
+                })
     }
 }
